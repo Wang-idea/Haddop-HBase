@@ -1,1 +1,3 @@
+com\wang_idea\service\impl\IndexSearchServiceImpl.class
 com\wang_idea\service\impl\IndexWriterServiceImpl.class
+com\wang_idea\service\SpiderKafkaConsumer.class

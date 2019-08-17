@@ -2,6 +2,7 @@ package com.wang_idea.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.wang_idea.pojo.News;
+import com.wang_idea.service.IndexWriterService;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,16 @@ import java.util.List;
  * 索引写入服务的实现
  */
 //添加dubbo的service的注解
+
 @Service
 public class IndexWriterServiceImpl implements IndexWriterService {
 
     @Autowired//类型注入
     private CloudSolrServer cloudSolrServer;
+
     /**
      * 索引写入的方法
+     *
      * @param list
      */
     @Override

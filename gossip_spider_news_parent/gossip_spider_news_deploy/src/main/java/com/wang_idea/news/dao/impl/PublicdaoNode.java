@@ -3,6 +3,7 @@ package com.wang_idea.news.dao.impl;
 import com.google.gson.Gson;
 import com.wang_idea.news.constant.SpiderConstant;
 import com.wang_idea.news.dao.NewsDao;
+import com.wang_idea.news.kafka.KafkaSpiderProducer;
 import com.wang_idea.news.news163.pojo.NewPojo;
 import com.wang_idea.news.utils.JedisUtils;
 import redis.clients.jedis.Jedis;
@@ -20,6 +21,9 @@ public class PublicdaoNode {
 
     //创建dao对象
     public static final NewsDao newsdao =new NewsDao();
+
+    //kafka生产者对象
+    private static  final KafkaSpiderProducer kafkaSpiderProducer = new KafkaSpiderProducer();
 
     public static void main(String[] args) {
         while (true) {
@@ -43,7 +47,10 @@ public class PublicdaoNode {
             //3. 保存New对象保存到mysql数据中
             newsdao.saveNews(newPojo);
 
-            //4. 将新闻对象的url保存到set集合中
+            //4. 将news Json类型数据保存到kafka集群
+            kafkaSpiderProducer.sendSpider(NewPojoJson);
+
+            //5. 将新闻对象的url保存到set集合中
             jedis = JedisUtils.getJedis();
             jedis.sadd(SpiderConstant.SPIDER_NEWS_URLSET,newPojo.getUrl());
             jedis.close();

@@ -13,24 +13,35 @@
         <module>search_service</module>
         <module>gossip_pojo</module>
         <module>gossip_portal</module>
+        <module>cache_service</module>
+        <module>gossip_storm</module>
     </modules>
     <!-- 集中定义依赖版本号 -->
     <properties>
+        <gson.version>2.8.1</gson.version>
         <junit.version>4.12</junit.version>
-        <spring.version>4.2.4.RELEASE</spring.version>
-        <servlet-api.version>2.5</servlet-api.version>
+        <jedis.version>2.9.0</jedis.version>
+        <druid.version>1.0.9</druid.version>
+        <c3p0.version>0.9.5.2</c3p0.version>
         <dubbo.version>2.8.4</dubbo.version>
-        <zookeeper.version>3.4.7</zookeeper.version>
+        <log4j.version>1.2.17</log4j.version>
+        <solrj.version>4.10.2</solrj.version>
+        <mysql.version>5.1.32</mysql.version>
         <zkclient.version>0.1</zkclient.version>
         <mybatis.version>3.2.8</mybatis.version>
-        <mybatis.spring.version>1.2.2</mybatis.spring.version>
-        <mysql.version>5.1.32</mysql.version>
-        <druid.version>1.0.9</druid.version>
+        <fastjson.version>1.2.28</fastjson.version>
+        <zookeeper.version>3.4.7</zookeeper.version>
+        <spring.version>4.2.4.RELEASE</spring.version>
+        <servlet-api.version>2.5</servlet-api.version>
+        <storm-core.version>1.1.1</storm-core.version>
         <freemarker.version>2.3.23</freemarker.version>
-        <solrj.version>4.10.2</solrj.version>
         <javassist.version>3.11.0.GA</javassist.version>
-        <jedis.version>2.9.0</jedis.version>
         <commons-lang3.version>3.5</commons-lang3.version>
+        <slf4j-log4j12.version>1.6.4</slf4j-log4j12.version>
+        <mybatis.spring.version>1.2.2</mybatis.spring.version>
+        <kafka-clients.version>0.10.0.0</kafka-clients.version>
+        <spring-kafka.version>1.3.5.RELEASE</spring-kafka.version>
+        <storm-kafka-client.version>1.1.1</storm-kafka-client.version>
     </properties>
 
     <dependencyManagement>
@@ -174,13 +185,37 @@
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
             </dependency>
+            <!--依赖-->
+            <!--storm 1.x原生storm包-->
+            <dependency>
+                <groupId>org.apache.storm</groupId>
+                <artifactId>storm-core</artifactId>
+                <version>${storm-core.version}</version>
+            </dependency>
+            <!--kafka包-->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka-clients.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
-        </dependencies>
+            <!--storm与kafka整合包-->
+            <dependency>
+                <groupId>org.apache.storm</groupId>
+                <artifactId>storm-kafka-client</artifactId>
+                <version>${storm-kafka-client.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>com.wang_idea.gossip</groupId>
+                <artifactId>gossip_pojo</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
     <build>
         <plugins>

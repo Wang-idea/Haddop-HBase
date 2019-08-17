@@ -7,6 +7,7 @@
     <groupId>com.wang_idea.gossip</groupId>
     <artifactId>gossip_spider_parent</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>gossip_spider_news_deploy</module>
         <module>goosip_spider_basiccase</module>
@@ -15,70 +16,266 @@
         <module>gossip_search_lucene</module>
         <module>gossip_search_solr</module>
         <module>gossip_search_solrcloud</module>
+        <module>kafka_producer</module>
+        <module>kafka_consumer</module>
+        <module>sping_kafka_producer</module>
+        <module>spring_kafka_consumer</module>
+        <module>gossip_storm</module>
+        <module>storm_cluster</module>
+        <module>gossip_storm_realboard</module>
+        <module>gossip_log_monitor</module>
     </modules>
     <packaging>pom</packaging>
-    <dependencies>
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
+
+    <properties>
+        <mail.version>1.4.1</mail.version>
+        <gson.version>2.8.5</gson.version>
+        <junit.version>4.12</junit.version>
+        <c3p0.version>0.9.5.4</c3p0.version>
+        <jedis.version>2.9.0</jedis.version>
+        <jsoup.version>1.12.1</jsoup.version>
+        <commons-io.version>2.6</commons-io.version>
+        <slf4j-nop.version>1.7.24</slf4j-nop.version>
+        <slf4j-api.version>1.7.13</slf4j-api.version>
+        <storm-jdbc.version>1.1.1</storm-jdbc.version>
+        <httpclient.version>4.5.9</httpclient.version>
+        <storm-core.version>1.1.1</storm-core.version>
+        <solr-solrj.version>4.10.2</solr-solrj.version>
+        <ikanalyzer.version>2012_u6</ikanalyzer.version>
+        <storm-redis.version>1.1.1</storm-redis.version>
+        <lucene-core.version>4.10.2</lucene-core.version>
+        <jackson-core.version>2.9.3</jackson-core.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <lucene-queries.version>4.10.2</lucene-queries.version>
+        <kafka-clients.version>0.11.0.1</kafka-clients.version>
+        <spring-jdbc.version>5.1.8.RELEASE</spring-jdbc.version>
+        <spring-test.version>4.3.17.RELEASE</spring-test.version>
+        <spring-kafka.version>1.3.5.RELEASE</spring-kafka.version>
+        <jackson-databind.version>2.9.3</jackson-databind.version>
+        <google-collections.version>1.0</google-collections.version>
+        <commons-logging-api.version>1.1</commons-logging-api.version>
+        <lucene-queryparser.version>4.10.2</lucene-queryparser.version>
+        <lucene-highlighter.version>4.10.2</lucene-highlighter.version>
+        <jackson-annotations.version>2.9.3</jackson-annotations.version>
+        <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
+        <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
+        <lucene-test-framework.version>4.10.2</lucene-test-framework.version>
+        <lucene-analyzers-common.version>4.10.2</lucene-analyzers-common.version>
+
+    </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <!--发邮件-->
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${mail.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mchange</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>${c3p0.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-nop</artifactId>
+                <version>${slf4j-nop.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.storm</groupId>
+                <artifactId>storm-jdbc</artifactId>
+                <version>${storm-jdbc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.storm</groupId>
+                <artifactId>storm-core</artifactId>
+                <version>${storm-core.version}</version>
+            </dependency>
+            <!--solr 依赖-->
+            <dependency>
+                <groupId>org.apache.solr</groupId>
+                <artifactId>solr-solrj</artifactId>
+                <version>${solr-solrj.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.storm</groupId>
+                <artifactId>storm-redis</artifactId>
+                <version>${storm-redis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.janeluo</groupId>
+                <artifactId>ikanalyzer</artifactId>
+                <version>${ikanalyzer.version}</version>
+            </dependency>
+
+            <!--核心包-->
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-core</artifactId>
+                <version>${lucene-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson-core.version}</version>
+            </dependency>
+
+            <!--工具包-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <!--索引包-->
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-queries</artifactId>
+                <version>${lucene-queries.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka-clients.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring-test.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring-jdbc.version}</version>
+            </dependency>
 
 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.6</version>
-        </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
+            </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>3.1.1</version>
-        </dependency>
-        <!--solr 依赖-->
-        <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-solrj</artifactId>
-            <version>4.10.2</version>
-        </dependency>
-        <!--日志的包, solrj执行需要一个日志包-->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-api</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.5</version>
-        </dependency>
+            <dependency>
+                <groupId>com.google.collections</groupId>
+                <artifactId>google-collections</artifactId>
+                <version>${google-collections.version}</version>
+            </dependency>
 
-        <!--solrj-->
-        <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-solrj</artifactId>
-            <version>4.10.2</version>
-        </dependency>
-        <!--日志的包, solrj执行需要一个日志包-->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-api</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-    </dependencies>
+            <!--日志的包, solrj执行需要一个日志包-->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging-api</artifactId>
+                <version>${commons-logging-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <!--Lucene分词查询-->
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-queryparser</artifactId>
+                <version>${lucene-queryparser.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-highlighter</artifactId>
+                <version>${lucene-highlighter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson-annotations.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly-plugin.version}</version>
+            </dependency>
+
+            <dependency>
+                <!--Lucene的测试包-->
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-test-framework</artifactId>
+                <version>${lucene-test-framework.version}</version>
+            </dependency>
+
+            <dependency>
+                <!--Lucene的测试包-->
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-analyzers-common</artifactId>
+                <version>${lucene-analyzers-common.version}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

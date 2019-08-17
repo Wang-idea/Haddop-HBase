@@ -69,6 +69,21 @@
             <artifactId>search_interface</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!--spring集成kafka的jar包-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>1.3.5.RELEASE</version>
+        </dependency>
+        <!--json转化包-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.1</version>
+        </dependency>
+
+
+
     </dependencies>
     <build>
         <plugins>

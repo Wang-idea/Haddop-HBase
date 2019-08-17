@@ -4,6 +4,9 @@ import org.apache.solr.client.solrj.beans.Field;
 
 import java.io.Serializable;
 
+/**
+ * @author user
+ */
 public class News implements Serializable {
     @Field
     private String id;

@@ -1,4 +1,5 @@
 com\wang_idea\service\impl\NewsServiceImpl.class
-com\wang_idea\timing\IndexWriterTiming.class
 com\wang_idea\service\NewsService.class
 com\wang_idea\mapper\NewsMapper.class
+com\wang_idea\controller\NewsController.class
+com\wang_idea\timing\IndexWriterTiming.class

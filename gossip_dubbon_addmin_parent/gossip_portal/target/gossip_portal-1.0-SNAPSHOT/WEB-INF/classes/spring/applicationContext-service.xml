@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <!--事务管理 扫描service层的包-->
     <!--    <context:component-scan base-package="com.wang_idea.service"/>-->
 
@@ -18,8 +18,8 @@
     <!--扫描@reference注解的类
     该扫描包含上面的包扫描  也可以扫描@Service扫描
     -->
+    <!--    <dubbo:annotation package="com.wang_idea.service"/>-->
     <dubbo:annotation package="com.wang_idea.service"/>
-
     <!--jedis的创建-->
     <bean name="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="50"></property>
@@ -30,6 +30,6 @@
         <!--value="poolConfig"是name="poolConfig"-->
         <constructor-arg name="poolConfig" ref="poolConfig"></constructor-arg>
         <constructor-arg name="host" value="192.168.72.142"></constructor-arg>
-        <constructor-arg name = "port" value="6379"></constructor-arg>
+        <constructor-arg name="port" value="6379"></constructor-arg>
     </bean>
 </beans>

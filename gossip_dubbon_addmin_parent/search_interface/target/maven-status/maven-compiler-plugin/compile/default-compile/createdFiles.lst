@@ -1,1 +1,2 @@
-com\wang_idea\service\impl\IndexWriterService.class
+com\wang_idea\service\IndexSearchService.class
+com\wang_idea\service\IndexWriterService.class

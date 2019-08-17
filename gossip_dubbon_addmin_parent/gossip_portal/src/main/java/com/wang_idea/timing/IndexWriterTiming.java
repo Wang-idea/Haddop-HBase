@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * 定时任务
  */
-@Component
+//@Component
 public class IndexWriterTiming {
 
     /**
@@ -25,7 +25,7 @@ public class IndexWriterTiming {
      * 执行什么任务  什么时候执行
      * 定时任务的定义：
      */
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void newsIndexWriterTiming(){
         try {
             logger.info("开始写入数据！！");

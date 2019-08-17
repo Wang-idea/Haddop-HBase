@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-solrj</artifactId>
-            <version>4.10.2</version>
+            <version>${solr-solrj.version}</version>
         </dependency>
         <!--日志的包, solrj执行需要一个日志包-->
         <dependency>
